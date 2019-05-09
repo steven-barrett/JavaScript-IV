@@ -23,6 +23,10 @@ class Instructor extends Person {
     grade (student, subject) {
         console.log(`${student.name} receives a perfect score on ${subject}`);
     }
+    appointGrade(student) {
+        student.grade = Math.round(Math.random() * 100);
+        console.log(`${student.name}'s grade is now ${student.grade}`);
+    }
 }
 
 class Student extends Person {
@@ -31,18 +35,31 @@ class Student extends Person {
         this.previousBackground = studentAttributes.previousBackground;
         this.className = studentAttributes.className;
         this.favSubjects = studentAttributes.favSubjects;
+        this.grade = studentAttributes.grade;
     }
     listsSubjects(favSubjects, length) {
         for (let i = 0; i < length; i++) {
             console.log(favSubjects[i]);
         }
     }
-
     PRAssignment(subject) {
         console.log(`${this.name} has submitted a PR for ${subject}`);
     }
     sprintChallenge(subject) {
         console.log(`${this.name} has begun sprint challenge on ${subject}`);
+    }
+    graduate() {
+        if (this.grade === 0) {
+            console.log(`${this.name} has completely failed at Lambda school!!!`)
+        }
+        else {
+            if (this.grade > 70) {
+                console.log(`${this.name} has graduated from Lambda school!!!`)
+            }
+            else {
+                console.log(`${this.name} is not ready to graduate.`)
+            }
+            }
     }
 }
 
@@ -67,7 +84,8 @@ const firstStudent = {
     location: 'Deland',
     previousBackground: 'Sorcerer to the king',
     className: 'Javascript 4',
-    favSubjects: ['Javascript', 'CSS', 'HTML']
+    favSubjects: ['Javascript', 'CSS', 'HTML'],
+    grade: 89
 }
 const secondStudent = {
     name: 'Tyler',
@@ -75,7 +93,8 @@ const secondStudent = {
     location: 'Miami',
     previousBackground: 'Court Jester',
     className: 'Javascript 4',
-    favSubjects: ['Lunch', 'Javascript', 'CSS', 'HTML']
+    favSubjects: ['Lunch', 'Javascript', 'CSS', 'HTML'],
+    grade: 72
 }
 const thirdStudent = {
     name: 'Sarah',
@@ -83,12 +102,13 @@ const thirdStudent = {
     location: 'North Pole',
     previousBackground: 'Santas Elf',
     className: 'Javascript 4',
-    favSubjects: ['Lunch', 'Javascript', 'CSS', 'HTML', 'Making toys']
+    favSubjects: ['Lunch', 'Javascript', 'CSS', 'HTML', 'Making toys'],
+    grade: 54
 }
 
-const steven = new Student(firstStudent);
-const tyler = new Student(secondStudent);
-const sarah = new Student(thirdStudent);
+const stevenStudent = new Student(firstStudent);
+const tylerStudent = new Student(secondStudent);
+const sarahStudent = new Student(thirdStudent);
 
 // Instructors ----------------------------
 const firstInstructor = {
@@ -107,8 +127,8 @@ const secondInstructor = {
     favLanguage: 'Java-script',
     catchPhrase: 'Make it so #1'
 }
-const david = new Instructor(firstInstructor);
-const frank = new Instructor(secondInstructor);
+const instructorDavid = new Instructor(firstInstructor);
+const instructorFrank = new Instructor(secondInstructor);
 
 // Project Managers -----------------------
 const firstProjectManager = {
@@ -132,21 +152,29 @@ const secondProjectManager = {
     favInstructor: 'David'
 }
 
-const diane = new ProjectManager(firstProjectManager);
-const Jawarhula = new ProjectManager(secondProjectManager);
+const pmDiane = new ProjectManager(firstProjectManager);
+const pmJawarhula = new ProjectManager(secondProjectManager);
 
 // Some testing!
-steven.listsSubjects(steven.favSubjects, steven.favSubjects.length);
-tyler.PRAssignment('biology')
-sarah.sprintChallenge('Battle-tech');
-steven.speak();
+stevenStudent.listsSubjects(stevenStudent.favSubjects, stevenStudent.favSubjects.length);
+tylerStudent.PRAssignment('biology')
+sarahStudent.sprintChallenge('Battle-tech');
+stevenStudent.speak();
 
-david.demo(tyler.favSubjects[0]);
-frank.grade(sarah, sarah.favSubjects[3]);
-david.speak();
+instructorDavid.demo(tylerStudent.favSubjects[0]);
+instructorFrank.grade(sarahStudent, sarahStudent.favSubjects[3]);
+instructorDavid.speak();
 
-diane.standUp('web20_adam');
-Jawarhula.grade(firstStudent, 'voyeurism');
-Jawarhula.speak();
+pmDiane.standUp('web20_adam');
+pmDiane.grade(stevenStudent, 'voyeurism');
+pmJawarhula.speak();
 
+// Stretch items tests
+pmJawarhula.appointGrade(tylerStudent);
+instructorDavid.appointGrade(stevenStudent);
+instructorFrank.appointGrade(sarahStudent);
+
+stevenStudent.graduate();
+tylerStudent.graduate();
+sarahStudent.graduate();
 
